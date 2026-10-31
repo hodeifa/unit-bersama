@@ -1,0 +1,31 @@
+/* Konsep: etalase showroom. Pita gelap berisi foto dan ajakan bertindak, badan halaman terang, satu aksen amber untuk tombol utama */
+:root{
+  --bg:#FAF8F4;--surface:#FFFFFF;--surface-2:#F1EDE4;--stage:#ECE7DB;
+  --text:#15181D;--muted:#555B63;--line:#E2DCCD;
+  --accent:#8F5A00;--accent-ink:#FFFFFF;--cta:#F5B000;--cta-ink:#15181D;
+  --info:#2B5FA8;--dp-tint:#F6E7BD;--danger:#B3261E;--ok:#1F7A4D;
+  --band:#12151A;--band-2:#1B1F26;--band-ink:#F4F1EA;--band-muted:#B4BAC2;--band-line:#2E343D;--band-accent:#F5B94A;
+  --shadow:0 1px 2px rgba(20,24,29,.06),0 12px 28px -16px rgba(20,24,29,.3);
+  --display:'Barlow Condensed','Arial Narrow',Arial,sans-serif;
+  --body:'Barlow',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1114;--surface:#171A1F;--surface-2:#1E2228;--stage:#1E2228;
+    --text:#F1EEE7;--muted:#A9AFB7;--line:#2A2F37;
+    --accent:#F0B84A;--accent-ink:#14110F;--cta:#F5B000;--cta-ink:#15181D;
+    --info:#8DB6EE;--dp-tint:#3A3220;--danger:#F2877F;--ok:#5CC38F;
+    --band:#090B0D;--band-2:#15181D;--band-ink:#F4F1EA;--band-muted:#B4BAC2;--band-line:#2A2F37;--band-accent:#F5B94A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 28px -16px rgba(0,0,0,.8);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1114;--surface:#171A1F;--surface-2:#1E2228;--stage:#1E2228;
+  --text:#F1EEE7;--muted:#A9AFB7;--line:#2A2F37;
+  --accent:#F0B84A;--accent-ink:#14110F;--cta:#F5B000;--cta-ink:#15181D;
+  --info:#8DB6EE;--dp-tint:#3A3220;--danger:#F2877F;--ok:#5CC38F;
+  --band:#090B0D;--band-2:#15181D;--band-ink:#F4F1EA;--band-muted:#B4BAC2;--band-line:#2A2F37;--band-accent:#F5B94A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 28px -16px rgba(0,0,0,.8);
+  color-scheme:dark;
+}

@@ -1,0 +1,788 @@
+<title>Katalog Unit Bersama</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Barlow:wght@400;500;600&amp;display=swap">
+<style id="css">
+/* Konsep: katalog showroom, satu aksen emas, ikon status dibedakan lewat bentuk bukan hanya warna */
+:root{
+  --bg:#F6F4EF;--surface:#FFFFFF;--surface-2:#EEEAE0;--stage:#E4DFD2;
+  --text:#17191B;--muted:#565C63;--line:#D8D3C6;
+  --accent:#8A6A12;--accent-ink:#FFFFFF;--info:#2B5FA8;--dp-tint:#F1E4BE;--danger:#B3261E;
+  --display:'Barlow Condensed','Arial Narrow',Arial,sans-serif;
+  --body:'Barlow',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121416;--surface:#1B1E21;--surface-2:#262A2E;--stage:#23272B;
+    --text:#ECE9E2;--muted:#A8ADB2;--line:#2E3338;
+    --accent:#C9A24D;--accent-ink:#14110F;--info:#8DB6EE;--dp-tint:#3A3220;--danger:#F2877F;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121416;--surface:#1B1E21;--surface-2:#262A2E;--stage:#23272B;
+  --text:#ECE9E2;--muted:#A8ADB2;--line:#2E3338;
+  --accent:#C9A24D;--accent-ink:#14110F;--info:#8DB6EE;--dp-tint:#3A3220;--danger:#F2877F;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:400 16px/1.5 var(--body);padding-bottom:64px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+h1,h2,h3,h4,p,dl,dd,ul{margin:0}
+h1,h2,h3,h4{text-wrap:balance}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.muted{color:var(--muted)}
+.sp{flex:1 1 auto}
+
+/* tombol */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:10px;border:1.5px solid var(--line);background:transparent;color:var(--text);font:600 15px var(--body);cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.danger{color:var(--danger);border-color:var(--danger)}
+.btn.sm{min-height:36px;padding:0 12px;font-size:14px}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.x{flex:none;width:44px;height:44px;border-radius:999px;border:1.5px solid var(--line);background:transparent;display:grid;place-items:center;cursor:pointer}
+
+/* admin bar */
+.abar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);font-size:14px}
+.abar.on{border-bottom:2px solid var(--accent)}
+.abin{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding-block:8px}
+.dirty{color:var(--accent);font-weight:600}
+
+/* header & hero */
+.top{border-bottom:1px solid var(--line)}
+.topin{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 16px;padding-block:18px}
+.logo{font:700 22px var(--display);letter-spacing:.08em;text-transform:uppercase}
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:32px 56px;padding-block:clamp(28px,6vw,64px) clamp(24px,4vw,40px)}
+.hero>div{flex:1 1 420px;min-width:0}
+.hero>.hs{flex:1 1 340px;max-width:560px}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font:700 clamp(48px,8vw,88px)/.95 var(--display);letter-spacing:.01em;text-transform:uppercase;margin-top:12px}
+.lead{margin-top:20px;max-width:520px;font-size:18px;color:var(--muted)}
+.stats{display:flex;flex-wrap:wrap;gap:20px 40px;margin-top:32px}
+.stat b{display:block;font:600 34px/1 var(--display);color:var(--accent)}
+.stat span{display:block;margin-top:4px;font-size:14px;color:var(--muted)}
+.hstage{position:relative;background:var(--stage);border:1px solid var(--line);border-radius:20px;padding:36px 24px 12px}
+
+/* langkah */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:20px 32px;border-block:1px solid var(--line);padding-block:24px}
+.step{display:flex;gap:14px;align-items:flex-start}
+.step i{font:700 32px/1 var(--display);color:var(--accent);font-style:normal}
+.step b{display:block;font-weight:600}
+.step span{display:block;font-size:14px;color:var(--muted)}
+
+/* bagian */
+.sec{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px}
+.sec .n{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:999px;border:1.5px solid var(--accent);color:var(--accent);font:700 18px var(--display)}
+h2{font:600 30px/1.1 var(--display);letter-spacing:.02em;text-transform:uppercase}
+.sec small{font-size:14px;color:var(--muted)}
+.gap{margin-top:44px}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
+.tier{display:block;width:100%;text-align:left;padding:20px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer}
+.tier[aria-pressed="true"]{border-color:var(--accent);background:var(--surface-2)}
+.tier .nm{display:flex;justify-content:space-between;gap:8px;font:600 20px var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tier .nm em{font:600 13px var(--body);font-style:normal;letter-spacing:0;text-transform:none;color:var(--accent)}
+.tier .tt{display:block;margin-top:8px;font:700 38px/1.05 var(--display)}
+.tier .ss{display:block;font-size:14px;color:var(--muted)}
+.tier .pp{display:block;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-weight:600}
+.tier .pp span,.tier .cc{font-weight:400;color:var(--muted);font-size:14px}
+.tier .cc{display:block;margin-top:2px}
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pill{min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line);background:transparent;font-weight:500;font-size:15px;cursor:pointer}
+.pill[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.pill span{margin-left:8px;opacity:.8}
+.note{display:flex;gap:12px;align-items:flex-start;border:1px dashed var(--muted);border-radius:12px;padding:14px 18px;font-size:14px;margin-top:16px}
+.note svg{flex:none;margin-top:2px;color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;padding:0;margin-top:16px;font-size:14px}
+.legend li{display:flex;align-items:center;gap:8px}
+.grp{margin-top:40px}
+.gh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:20px}
+.gh h3{font:600 30px/1.1 var(--display);letter-spacing:.02em;text-transform:uppercase}
+.gh span{font-size:14px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:20px}
+.card{display:flex;flex-direction:column;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.stage{position:relative;background:var(--stage);padding:40px 16px 10px}
+.stage svg,.hstage svg{display:block;width:100%;height:auto}
+.tag{position:absolute;top:12px;left:12px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;border:1px solid var(--muted);color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.stage.ph{padding:0}
+.mimg{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--surface-2)}
+.ph .tag{background:rgba(0,0,0,.6);color:#fff;border-color:rgba(255,255,255,.7)}
+.hstage.ph{padding:0;overflow:hidden}
+.dt>.l .mimg{border-radius:12px}
+.imgprev{display:flex;flex-direction:column;gap:8px;align-items:flex-start;width:100%}
+.imgprev .mimg{max-width:320px;border-radius:10px;border:1px solid var(--line)}
+input[type=file]{padding:8px 12px}
+.cb{display:flex;flex-direction:column;gap:14px;padding:18px 20px 20px;flex:1}
+.cb .mt{font-size:13px;color:var(--muted)}
+.cb h4{font:600 28px/1.1 var(--display);margin-top:2px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px 12px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{font-weight:600;text-align:right}
+.kv dd.ac{color:var(--accent);font-weight:700}
+.sl{display:flex;flex-direction:column;gap:8px}
+.sl .lb{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;font-size:13px;color:var(--muted)}
+.slots{display:flex;flex-wrap:wrap;gap:10px}
+.mem{--st:var(--muted);position:relative;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);border:2px solid var(--st);font:600 15px var(--display);letter-spacing:.04em;color:var(--text);padding:0;cursor:default}
+button.mem{cursor:pointer}
+.mem.st-daftar{--st:var(--muted);border-style:dashed}
+.mem.st-verifikasi{--st:var(--info)}
+.mem.st-dp{--st:var(--accent);background:var(--dp-tint)}
+.mem.empty{border:1.5px dashed var(--muted);background:transparent;color:var(--muted);font-size:20px;opacity:.65}
+button.mem.empty{opacity:1}
+.bdg{position:absolute;right:-5px;bottom:-5px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--st);border:1.5px solid var(--st)}
+.bdg svg{display:block}
+.lg{--st:var(--muted);position:relative;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--surface);color:var(--st);border:1.5px solid var(--st)}
+.lg.st-verifikasi{--st:var(--info)}
+.lg.st-dp{--st:var(--accent)}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.acts .btn{flex:1 1 120px}
+.empty-state{padding:32px 16px;text-align:center;border:1px dashed var(--line);border-radius:14px;color:var(--muted)}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:13px;color:var(--muted)}
+.foot p{max-width:720px}
+
+/* dialog */
+dialog{width:min(920px,calc(100vw - 32px));max-height:calc(100dvh - 32px);padding:0;border:1px solid var(--line);border-radius:18px;background:var(--surface);color:var(--text);overflow:auto}
+dialog.narrow{width:min(560px,calc(100vw - 32px))}
+dialog:not([open]){display:none}
+dialog::backdrop{background:rgba(8,9,10,.72)}
+.dt{display:flex;flex-wrap:wrap}
+.dt>.l{flex:1 1 340px;min-width:0;background:var(--stage);padding:28px 20px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.dt>.r{flex:1 1 380px;min-width:0;padding:28px}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.dh .mt{font-size:13px;color:var(--muted)}
+.dh h2{font:700 38px/1.05 var(--display);text-transform:none;letter-spacing:0;margin-top:2px}
+.dh .tr{margin-top:6px;font-size:14px;color:var(--accent);font-weight:600}
+.dt h3{font:600 20px var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 10px}
+.dt .kv{font-size:15px}
+.dt .kv.sm{font-size:14px}
+.box{margin-top:20px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);font-size:14px}
+.box b{display:block;margin-bottom:2px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btns .btn{flex:1 1 180px}
+.frm{padding:24px}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld.wide{grid-column:1/-1}
+.fld label{font-size:14px;font-weight:600}
+.fld small{font-size:13px;color:var(--muted)}
+input,select,textarea{width:100%;min-height:44px;padding:8px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--text)}
+textarea{resize:vertical}
+.err{margin-top:14px;color:var(--danger);font-size:14px;font-weight:600}
+.frow{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:60;max-width:min(520px,calc(100vw - 32px));padding:12px 18px;border-radius:12px;background:var(--text);color:var(--bg);font-size:14px;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.3)}
+@media (max-width:560px){.fgrid{grid-template-columns:minmax(0,1fr)}.dh h2{font-size:32px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<div id="app"></div>
+<dialog id="dlg"></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script type="application/json" id="state">{"v":1,"settings":{"brand":"","whatsapp":"","dp":5,"dpNote":""},"tiers":[{"id":"t1","name":"Entry","min":300,"max":400},{"id":"t2","name":"Classic","min":400,"max":500},{"id":"t3","name":"Prestige","min":500,"max":600}],"brands":[{"id":"hd","name":"Harley-Davidson","origin":"Amerika Serikat"},{"id":"tri","name":"Triumph","origin":"Inggris"},{"id":"ind","name":"Indian Motorcycle","origin":"Amerika Serikat"},{"id":"duc","name":"Ducati","origin":"Italia"}],"models":[{"id":"iron883","tier":"t1","brand":"hd","name":"Iron 883","family":"Sportster","cc":883,"y1":2016,"y2":2021,"fmin":320,"fmax":390,"body":"bobber","paint":"#7A8791"},{"id":"streetrod","tier":"t1","brand":"hd","name":"Street Rod","family":"Street","cc":750,"y1":2017,"y2":2020,"fmin":300,"fmax":360,"body":"roadster","paint":"#2F6FA8"},{"id":"t120","tier":"t1","brand":"tri","name":"Bonneville T120","family":"Modern Classic","cc":1200,"y1":2016,"y2":2021,"fmin":340,"fmax":400,"body":"roadster","paint":"#3E8E6B"},{"id":"speedtwin","tier":"t1","brand":"tri","name":"Speed Twin","family":"Modern Classic","cc":1200,"y1":2019,"y2":2022,"fmin":360,"fmax":400,"body":"roadster","paint":"#C8402F"},{"id":"scout","tier":"t1","brand":"ind","name":"Scout","family":"Scout","cc":1133,"y1":2015,"y2":2020,"fmin":350,"fmax":400,"body":"cruiser","paint":"#D9A441"},{"id":"scrambler1100","tier":"t1","brand":"duc","name":"Scrambler 1100","family":"Scrambler","cc":1079,"y1":2018,"y2":2022,"fmin":340,"fmax":400,"body":"roadster","paint":"#D9A441"},{"id":"forty8","tier":"t2","brand":"hd","name":"Forty-Eight","family":"Sportster","cc":1202,"y1":2016,"y2":2022,"fmin":420,"fmax":490,"body":"bobber","paint":"#D96C2B"},{"id":"nightster","tier":"t2","brand":"hd","name":"Nightster","family":"Sportster","cc":975,"y1":2022,"y2":2024,"fmin":440,"fmax":500,"body":"cruiser","paint":"#8E8A82"},{"id":"streetbob107","tier":"t2","brand":"hd","name":"Street Bob 107","family":"Softail","cc":1745,"y1":2018,"y2":2020,"fmin":450,"fmax":500,"body":"bobber","paint":"#C8402F"},{"id":"bobber","tier":"t2","brand":"tri","name":"Bonneville Bobber","family":"Modern Classic","cc":1200,"y1":2017,"y2":2021,"fmin":430,"fmax":490,"body":"bobber","paint":"#3E8E6B"},{"id":"scoutbobber","tier":"t2","brand":"ind","name":"Scout Bobber","family":"Scout","cc":1133,"y1":2018,"y2":2022,"fmin":410,"fmax":470,"body":"bobber","paint":"#8F6BD0"},{"id":"monster937","tier":"t2","brand":"duc","name":"Monster 937","family":"Monster","cc":937,"y1":2021,"y2":2023,"fmin":420,"fmax":490,"body":"roadster","paint":"#C8402F"},{"id":"streetbob114","tier":"t3","brand":"hd","name":"Street Bob 114","family":"Softail","cc":1868,"y1":2021,"y2":2022,"fmin":520,"fmax":590,"body":"bobber","paint":"#2F6FA8"},{"id":"fatbob","tier":"t3","brand":"hd","name":"Fat Bob 114","family":"Softail","cc":1868,"y1":2018,"y2":2022,"fmin":540,"fmax":600,"body":"bobber","paint":"#D9A441"},{"id":"fatboy","tier":"t3","brand":"hd","name":"Fat Boy 114","family":"Softail","cc":1868,"y1":2018,"y2":2022,"fmin":550,"fmax":600,"body":"cruiser","paint":"#8E8A82"},{"id":"lowriders","tier":"t3","brand":"hd","name":"Low Rider S","family":"Softail","cc":1923,"y1":2020,"y2":2022,"fmin":520,"fmax":590,"body":"cruiser","paint":"#3E8E6B"},{"id":"roadking","tier":"t3","brand":"hd","name":"Road King","family":"Touring","cc":1745,"y1":2017,"y2":2020,"fmin":540,"fmax":600,"body":"bagger","paint":"#C8402F"},{"id":"streetglide","tier":"t3","brand":"hd","name":"Street Glide","family":"Touring","cc":1745,"y1":2017,"y2":2020,"fmin":560,"fmax":600,"body":"bagger","paint":"#2F6FA8"},{"id":"chiefdh","tier":"t3","brand":"ind","name":"Chief Dark Horse","family":"Chief","cc":1890,"y1":2022,"y2":2024,"fmin":560,"fmax":600,"body":"cruiser","paint":"#D96C2B"}],"members":[]}</script>
+<script id="appjs">
+(function () {
+  'use strict';
+  var TITLE = 'Katalog Unit Bersama';
+  var FONT = 'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Barlow:wght@400;500;600&amp;display=swap';
+  var FALLBACK_RESET = ':root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}';
+  var SLOTS = 6;
+  var STATUS = { daftar: 'Mendaftar', verifikasi: 'Terverifikasi', dp: 'DP terbayar' };
+  var PAINTS = [['#C8402F', 'Merah'], ['#2F6FA8', 'Biru'], ['#3E8E6B', 'Hijau'], ['#D9A441', 'Emas'], ['#D96C2B', 'Oranye'], ['#7A8791', 'Abu-abu'], ['#8E8A82', 'Perak'], ['#8F6BD0', 'Ungu']];
+  var BODIES = [['cruiser', 'Cruiser'], ['bobber', 'Bobber'], ['roadster', 'Roadster'], ['bagger', 'Tourer (fairing + tas samping)']];
+  var S = JSON.parse(document.getElementById('state').textContent);
+  var UI = { tier: S.tiers[0] ? S.tiers[0].id : null, brand: 'all', admin: false, canEdit: false, dirty: 0, saving: false, focus: null };
+  var app = document.getElementById('app');
+  var dlg = document.getElementById('dlg');
+  var toastEl = document.getElementById('toast');
+  var toastTimer = null;
+
+  /* ---------- util ---------- */
+  function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+  function rp(a, b) { return 'Rp' + a + '–' + b + ' jt'; }
+  function per(a, b) { return rp(Math.round(a / SLOTS), Math.round(b / SLOTS)); }
+  function uid(p) { return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function tierOf(id) { return S.tiers.filter(function (t) { return t.id === id; })[0]; }
+  function brandOf(id) { return S.brands.filter(function (b) { return b.id === id; })[0]; }
+  function modelOf(id) { return S.models.filter(function (m) { return m.id === id; })[0]; }
+  function membersOf(id) { return S.members.filter(function (m) { return m.model === id; }); }
+  function use(n) { return (window.claude && window.claude.use) ? window.claude.use(n) : Promise.resolve(null); }
+  function toast(msg) {
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.hidden = true; }, 5000);
+  }
+  function stash() { try { sessionStorage.setItem('kt-admin', UI.admin ? '1' : '0'); } catch (e) {} }
+
+  /* ---------- ilustrasi motor ---------- */
+  function wheel(cx) {
+    var s = '<circle cx="' + cx + '" cy="164" r="40" fill="#0B0C0D" stroke="#3A3F45" stroke-width="1.5"/><circle cx="' + cx + '" cy="164" r="29" fill="#15171A" stroke="#AEB4BA" stroke-width="3"/><g stroke="#6F767D" stroke-width="1.5" stroke-linecap="round">';
+    [0, 30, 60, 90, 120, 150].forEach(function (a) {
+      var r = a * Math.PI / 180, dx = 29 * Math.cos(r), dy = 29 * Math.sin(r);
+      s += '<line x1="' + (cx - dx).toFixed(1) + '" y1="' + (164 - dy).toFixed(1) + '" x2="' + (cx + dx).toFixed(1) + '" y2="' + (164 + dy).toFixed(1) + '"/>';
+    });
+    return s + '</g><circle cx="' + cx + '" cy="164" r="6" fill="#C9CED4"/>';
+  }
+  var BASE = '<ellipse cx="200" cy="206" rx="176" ry="6" fill="#000" opacity=".3"/>' + wheel(92) + wheel(308);
+  var CH = '#C9CED4', FR = '#15171A';
+  var BIKE = {
+    cruiser: function (p) {
+      return '<path d="M92 164 L178 158" stroke="' + FR + '" stroke-width="7" stroke-linecap="round" fill="none"/>' +
+        '<path d="M128 106 L112 152" stroke="' + CH + '" stroke-width="3" stroke-linecap="round" fill="none"/>' +
+        '<path d="M268 94 L222 148 L176 158" stroke="' + FR + '" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<path d="M262 98 L132 106" stroke="' + FR + '" stroke-width="5" stroke-linecap="round" fill="none"/>' +
+        '<rect x="162" y="138" width="66" height="42" rx="9" fill="#50565D"/>' +
+        '<rect x="168" y="104" width="22" height="44" rx="5" fill="#5E656C" transform="rotate(-24 179 140)"/>' +
+        '<rect x="200" y="104" width="22" height="44" rx="5" fill="#5E656C" transform="rotate(24 211 140)"/>' +
+        '<path d="M172 150 L204 150" stroke="#3A3F45" stroke-width="2" fill="none"/>' +
+        '<path d="M216 152 C238 178 214 184 180 184 L116 184" stroke="' + CH + '" stroke-width="9" stroke-linecap="round" fill="none"/>' +
+        '<path d="M216 149 C236 172 212 180 180 180 L116 180" stroke="#F2F4F6" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".7"/>' +
+        '<rect x="62" y="173" width="64" height="15" rx="7.5" fill="' + CH + '"/>' +
+        '<path d="M52 150 C64 118 104 114 138 128 L132 136 C106 126 76 128 62 156 Z" fill="' + p + '"/>' +
+        '<path d="M178 98 C158 104 132 106 112 104 C102 104 98 110 102 114 L174 110 Z" fill="#2C3035"/>' +
+        '<path d="M112 104 C132 106 158 104 178 98" stroke="#4A5058" stroke-width="1.5" fill="none"/>' +
+        '<path d="M258 96 C256 78 236 66 208 66 C186 66 172 74 168 90 C190 102 236 104 258 96 Z" fill="' + p + '"/>' +
+        '<path d="M182 80 C198 70 226 70 244 82" stroke="#FFF" stroke-width="3" stroke-linecap="round" fill="none" opacity=".35"/>' +
+        '<path d="M308 164 L270 92" stroke="' + CH + '" stroke-width="6" stroke-linecap="round" fill="none"/>' +
+        '<path d="M313 161 L275 89" stroke="#8C939A" stroke-width="3" stroke-linecap="round" fill="none"/>' +
+        '<path d="M274 134 C296 112 330 118 346 142 L340 146 C326 128 298 126 282 142 Z" fill="' + p + '"/>' +
+        '<circle cx="286" cy="100" r="12" fill="#F1EBD3" stroke="' + CH + '" stroke-width="3"/>' +
+        '<path d="M270 92 L266 74 C264 66 254 64 244 66 L228 72" stroke="' + FR + '" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<rect x="206" y="186" width="34" height="6" rx="3" fill="' + FR + '"/>';
+    },
+    bobber: function (p) {
+      return '<path d="M92 164 L178 158" stroke="' + FR + '" stroke-width="7" stroke-linecap="round" fill="none"/>' +
+        '<path d="M268 96 L222 148 L176 158" stroke="' + FR + '" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<path d="M262 100 L140 108" stroke="' + FR + '" stroke-width="5" stroke-linecap="round" fill="none"/>' +
+        '<rect x="162" y="138" width="66" height="42" rx="9" fill="#50565D"/>' +
+        '<rect x="168" y="104" width="22" height="44" rx="5" fill="#5E656C" transform="rotate(-24 179 140)"/>' +
+        '<rect x="200" y="104" width="22" height="44" rx="5" fill="#5E656C" transform="rotate(24 211 140)"/>' +
+        '<path d="M172 150 L204 150" stroke="#3A3F45" stroke-width="2" fill="none"/>' +
+        '<path d="M214 152 C230 176 214 182 184 182 L112 182" stroke="' + CH + '" stroke-width="9" stroke-linecap="round" fill="none"/>' +
+        '<path d="M214 149 C228 170 212 178 184 178 L112 178" stroke="#F2F4F6" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".7"/>' +
+        '<rect x="70" y="175" width="50" height="14" rx="7" fill="' + CH + '"/>' +
+        '<path d="M58 140 C70 120 104 116 128 128 L124 134 C104 126 78 128 66 144 Z" fill="' + p + '"/>' +
+        '<path d="M118 114 L118 124 M138 112 L138 124" stroke="' + CH + '" stroke-width="2" stroke-linecap="round" fill="none"/>' +
+        '<path d="M152 102 C140 98 120 98 108 104 C104 108 108 114 116 114 L150 112 Z" fill="#2C3035"/>' +
+        '<path d="M108 104 C120 98 140 98 152 102" stroke="#4A5058" stroke-width="1.5" fill="none"/>' +
+        '<path d="M256 98 C254 82 238 74 218 74 C198 74 184 82 182 96 C206 106 236 106 256 98 Z" fill="' + p + '"/>' +
+        '<path d="M196 84 C208 77 228 77 242 86" stroke="#FFF" stroke-width="3" stroke-linecap="round" fill="none" opacity=".35"/>' +
+        '<path d="M308 164 L274 96" stroke="' + CH + '" stroke-width="6" stroke-linecap="round" fill="none"/>' +
+        '<path d="M313 161 L279 93" stroke="#8C939A" stroke-width="3" stroke-linecap="round" fill="none"/>' +
+        '<path d="M280 132 C298 116 324 120 336 136 L331 140 C320 128 300 128 288 138 Z" fill="' + p + '"/>' +
+        '<circle cx="288" cy="104" r="10" fill="#F1EBD3" stroke="' + CH + '" stroke-width="3"/>' +
+        '<path d="M273 96 L272 68 C272 60 260 58 252 64 L246 70" stroke="' + FR + '" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<rect x="206" y="186" width="30" height="6" rx="3" fill="' + FR + '"/>';
+    },
+    roadster: function (p) {
+      return '<path d="M92 164 L170 158" stroke="' + FR + '" stroke-width="7" stroke-linecap="round" fill="none"/>' +
+        '<path d="M132 98 L112 150" stroke="' + CH + '" stroke-width="3" stroke-linecap="round" fill="none"/>' +
+        '<path d="M278 90 L226 142 L172 158" stroke="' + FR + '" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<path d="M274 96 L140 102" stroke="' + FR + '" stroke-width="5" stroke-linecap="round" fill="none"/>' +
+        '<rect x="160" y="138" width="68" height="42" rx="9" fill="#50565D"/>' +
+        '<rect x="170" y="104" width="22" height="46" rx="5" fill="#5E656C" transform="rotate(-12 181 144)"/>' +
+        '<rect x="198" y="104" width="22" height="46" rx="5" fill="#5E656C" transform="rotate(12 209 144)"/>' +
+        '<path d="M172 152 L206 152" stroke="#3A3F45" stroke-width="2" fill="none"/>' +
+        '<path d="M204 156 C216 182 190 190 150 190 L116 189" stroke="' + CH + '" stroke-width="8" stroke-linecap="round" fill="none"/>' +
+        '<path d="M120 187 L64 176" stroke="' + CH + '" stroke-width="13" stroke-linecap="round" fill="none"/>' +
+        '<path d="M60 140 C72 124 100 122 120 130 L117 135 C100 128 78 130 66 144 Z" fill="#2C3035"/>' +
+        '<path d="M112 92 C96 92 84 98 76 106 L84 112 L112 100 Z" fill="' + p + '"/>' +
+        '<path d="M178 90 C150 94 128 94 112 92 C106 92 104 98 108 100 L178 100 Z" fill="#2C3035"/>' +
+        '<path d="M112 92 C128 94 150 94 178 90" stroke="#4A5058" stroke-width="1.5" fill="none"/>' +
+        '<path d="M278 92 C278 74 256 62 226 62 C198 62 178 70 172 88 C202 98 252 100 278 92 Z" fill="' + p + '"/>' +
+        '<path d="M186 76 C204 68 232 68 254 78" stroke="#FFF" stroke-width="3" stroke-linecap="round" fill="none" opacity=".35"/>' +
+        '<path d="M308 164 L282 84" stroke="' + CH + '" stroke-width="6" stroke-linecap="round" fill="none"/>' +
+        '<path d="M313 162 L287 82" stroke="#8C939A" stroke-width="3" stroke-linecap="round" fill="none"/>' +
+        '<path d="M282 132 C298 118 322 120 334 134 L329 138 C320 128 300 128 290 138 Z" fill="#2C3035"/>' +
+        '<circle cx="298" cy="92" r="13" fill="#F1EBD3" stroke="' + CH + '" stroke-width="3"/>' +
+        '<path d="M282 84 L280 70 C280 64 272 62 262 64 L248 68" stroke="' + FR + '" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<rect x="160" y="178" width="26" height="6" rx="3" fill="' + FR + '"/>';
+    },
+    bagger: function (p) {
+      return '<path d="M92 164 L178 158" stroke="' + FR + '" stroke-width="7" stroke-linecap="round" fill="none"/>' +
+        '<path d="M268 96 L222 148 L176 158" stroke="' + FR + '" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<path d="M262 100 L132 106" stroke="' + FR + '" stroke-width="5" stroke-linecap="round" fill="none"/>' +
+        '<rect x="162" y="138" width="66" height="42" rx="9" fill="#50565D"/>' +
+        '<rect x="168" y="104" width="22" height="44" rx="5" fill="#5E656C" transform="rotate(-24 179 140)"/>' +
+        '<rect x="200" y="104" width="22" height="44" rx="5" fill="#5E656C" transform="rotate(24 211 140)"/>' +
+        '<path d="M172 150 L204 150" stroke="#3A3F45" stroke-width="2" fill="none"/>' +
+        '<path d="M216 152 C238 178 214 186 180 186 L116 186" stroke="' + CH + '" stroke-width="9" stroke-linecap="round" fill="none"/>' +
+        '<rect x="62" y="176" width="64" height="15" rx="7.5" fill="' + CH + '"/>' +
+        '<path d="M178 98 C158 104 132 106 112 104 C102 104 98 110 102 114 L174 110 Z" fill="#2C3035"/>' +
+        '<path d="M258 98 C256 80 236 68 208 68 C186 68 172 76 168 92 C190 104 236 106 258 98 Z" fill="' + p + '"/>' +
+        '<path d="M182 82 C198 72 226 72 244 84" stroke="#FFF" stroke-width="3" stroke-linecap="round" fill="none" opacity=".35"/>' +
+        '<path d="M308 164 L270 92" stroke="' + CH + '" stroke-width="6" stroke-linecap="round" fill="none"/>' +
+        '<path d="M313 161 L275 89" stroke="#8C939A" stroke-width="3" stroke-linecap="round" fill="none"/>' +
+        '<path d="M274 134 C296 112 330 118 346 142 L340 146 C326 128 298 126 282 142 Z" fill="' + p + '"/>' +
+        '<path d="M262 96 L240 76 L224 76" stroke="' + FR + '" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<path d="M60 128 C82 110 152 110 192 124 L198 146 C170 156 100 156 66 150 Z" fill="' + p + '"/>' +
+        '<path d="M72 132 C96 120 150 120 184 130" stroke="#FFF" stroke-width="3" stroke-linecap="round" fill="none" opacity=".3"/>' +
+        '<rect x="150" y="136" width="20" height="5" rx="2.5" fill="' + CH + '"/>' +
+        '<path d="M268 62 L252 36 C266 34 290 40 296 58 L286 68 Z" fill="#9FB3C3" opacity=".6"/>' +
+        '<path d="M260 110 C254 86 260 72 276 66 C292 72 302 88 300 110 C290 120 270 120 260 110 Z" fill="' + p + '"/>' +
+        '<ellipse cx="282" cy="98" rx="9" ry="10" fill="#F1EBD3" stroke="' + CH + '" stroke-width="2.5"/>' +
+        '<rect x="206" y="190" width="34" height="6" rx="3" fill="' + FR + '"/>';
+    }
+  };
+  function bike(kind, paint) {
+    var f = BIKE[kind] || BIKE.cruiser;
+    return '<svg viewBox="0 0 400 230" aria-hidden="true" focusable="false">' + BASE + f(esc(paint || '#C8402F')) + '</svg>';
+  }
+
+  function pic(m) {
+    if (m.img) return '<img class="mimg" src="' + esc(m.img) + '" alt="Ilustrasi ' + esc(m.name) + '" loading="lazy" decoding="async">';
+    return bike(m.body, m.paint);
+  }
+  function readImage(file) {
+    return new Promise(function (res, rej) {
+      if (!/^image\/(png|jpe?g|webp)$/i.test(file.type)) { rej('Pilih file gambar JPG, PNG, atau WebP.'); return; }
+      if (file.size > 15 * 1024 * 1024) { rej('File terlalu besar. Maksimal 15 MB.'); return; }
+      var url = URL.createObjectURL(file), im = new Image();
+      im.onload = function () {
+        URL.revokeObjectURL(url);
+        var out = '', widths = [1000, 800, 640], quals = [0.82, 0.7, 0.58], wi, qi;
+        for (wi = 0; wi < widths.length && !(out && out.length < 260000); wi++) {
+          var s = Math.min(1, widths[wi] / Math.max(im.naturalWidth, im.naturalHeight));
+          var w = Math.max(1, Math.round(im.naturalWidth * s)), h = Math.max(1, Math.round(im.naturalHeight * s));
+          var c = document.createElement('canvas'); c.width = w; c.height = h;
+          var x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, w, h); x.drawImage(im, 0, 0, w, h);
+          for (qi = 0; qi < quals.length; qi++) {
+            out = c.toDataURL('image/webp', quals[qi]);
+            if (out.indexOf('data:image/webp') !== 0) out = c.toDataURL('image/jpeg', quals[qi]);
+            if (out.length < 260000) break;
+          }
+        }
+        res(out);
+      };
+      im.onerror = function () { URL.revokeObjectURL(url); rej('Gambar tidak bisa dibaca. Coba file lain.'); };
+      im.src = url;
+    });
+  }
+
+  /* ---------- ikon status ---------- */
+  var ICON_ATTR = 'viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"';
+  function ico(st) {
+    if (st === 'daftar') return '<svg ' + ICON_ATTR + '><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8 4.7V8l2.3 1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+    if (st === 'verifikasi') return '<svg ' + ICON_ATTR + '><path d="M8 1.5l5 1.8v4.3c0 3-2.1 5.1-5 6.7-2.9-1.6-5-3.7-5-6.7V3.3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5.5 8l1.8 1.8 3.3-3.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    return '<svg ' + ICON_ATTR + '><path d="M8 1.2l5.9 3.4v6.8L8 14.8 2.1 11.4V4.6z" fill="currentColor"/><path d="M5.3 8.1l1.9 1.9 3.5-3.7" fill="none" stroke="var(--accent-ink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+  var X_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>';
+  var INFO_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="8" r=".6" fill="currentColor"/></svg>';
+
+  /* ---------- slot anggota ---------- */
+  function memHtml(m, admin, modelId) {
+    if (m) {
+      var label = m.ini + ', ' + STATUS[m.st];
+      var inner = '<span>' + esc(m.ini) + '</span><span class="bdg" aria-hidden="true">' + ico(m.st) + '</span>';
+      if (admin) return '<button type="button" class="mem st-' + m.st + '" data-act="slot" data-id="' + esc(modelId) + '" data-mid="' + esc(m.id) + '" data-fk="slot-' + esc(m.id) + '" aria-label="Ubah anggota ' + esc(label) + '">' + inner + '</button>';
+      return '<span class="mem st-' + m.st + '" role="img" aria-label="' + esc(label) + '" title="' + esc(label) + '">' + inner + '</span>';
+    }
+    if (admin) return '<button type="button" class="mem empty" data-act="slot" data-id="' + esc(modelId) + '" data-mid="" data-fk="slot-new-' + esc(modelId) + '" aria-label="Tambah anggota ke slot kosong">+</button>';
+    return '<span class="mem empty" role="img" aria-label="Slot tersedia" title="Slot tersedia"></span>';
+  }
+  function slotsHtml(id, admin) {
+    var ms = membersOf(id), h = '<div class="slots">', i, shownAdd = false;
+    for (i = 0; i < SLOTS; i++) {
+      var m = ms[i] || null;
+      if (!m && admin) { if (shownAdd) { h += '<span class="mem empty" aria-hidden="true"></span>'; continue; } shownAdd = true; }
+      h += memHtml(m, admin, id);
+    }
+    return h + '</div>';
+  }
+  function summary(id) {
+    var ms = membersOf(id), dp = ms.filter(function (m) { return m.st === 'dp'; }).length;
+    return ms.length + '/' + SLOTS + ' slot terisi' + (dp ? ' · ' + dp + ' DP terbayar' : '');
+  }
+  function legend() {
+    var h = '<ul class="legend" aria-label="Arti ikon status">';
+    ['daftar', 'verifikasi', 'dp'].forEach(function (s) { h += '<li><span class="lg st-' + s + '">' + ico(s) + '</span>' + STATUS[s] + '</li>'; });
+    return h + '</ul>';
+  }
+
+  /* ---------- render ---------- */
+  function fixUI() {
+    if (!tierOf(UI.tier)) UI.tier = S.tiers[0] ? S.tiers[0].id : null;
+    if (UI.brand !== 'all') {
+      var ok = S.models.some(function (m) { return m.tier === UI.tier && m.brand === UI.brand; });
+      if (!ok) UI.brand = 'all';
+    }
+  }
+  function adminBar() {
+    if (!UI.canEdit) return '';
+    if (!UI.admin) return '<div class="abar"><div class="wrap abin"><span>Anda masuk sebagai pengelola.</span><span class="sp"></span><button type="button" class="btn sm" data-act="admin" data-fk="admin">Kelola listing</button></div></div>';
+    var st = UI.dirty ? '<span class="dirty">' + UI.dirty + ' perubahan belum diterbitkan</span>' : '<span class="muted">Semua perubahan sudah terbit</span>';
+    return '<div class="abar on"><div class="wrap abin"><strong>Mode kelola</strong>' + st + '<span class="sp"></span>' +
+      '<button type="button" class="btn sm" data-act="settings" data-fk="settings">Pengaturan</button>' +
+      '<button type="button" class="btn sm" data-act="model-add" data-fk="madd">+ Model</button>' +
+      (UI.dirty ? '<button type="button" class="btn sm" data-act="discard">Batalkan</button>' : '') +
+      '<button type="button" class="btn sm primary" data-act="publish" data-fk="publish"' + (UI.dirty && !UI.saving ? '' : ' disabled') + '>' + (UI.saving ? 'Menerbitkan…' : 'Terbitkan') + '</button>' +
+      '<button type="button" class="btn sm" data-act="admin" data-fk="admin">Selesai</button></div></div>';
+  }
+  function header() {
+    return '<header class="top"><div class="wrap topin"><span class="logo">' + esc(S.settings.brand || '[NAMA PLATFORM]') + '</span><span class="muted" style="font-size:14px">Kepemilikan bersama moge · 1 unit, 6 anggota</span></div></header>';
+  }
+  function hero() {
+    return '<section class="wrap hero"><div><p class="eyebrow">Katalog unit</p><h1><span style="display:block">Satu moge,</span><span style="display:block">enam pemilik.</span></h1>' +
+      '<p class="lead">Pilih range harga, merek, lalu model yang kamu incar. Unit sebenarnya dicarikan setelah dana 6 anggota terkumpul.</p>' +
+      '<div class="stats"><div class="stat"><b>5 tahun</b><span>Durasi kontrak</span></div><div class="stat"><b>Rp50 jt</b><span>Mulai dari, per anggota</span></div><div class="stat"><b>1/6</b><span>Hak pakai bergantian</span></div></div></div>' +
+      '<div class="hs"><div class="hstage' + (S.settings.heroImg ? ' ph' : '') + '"><span class="tag">Ilustrasi</span>' + (S.settings.heroImg ? '<img class="mimg" src="' + esc(S.settings.heroImg) + '" alt="Ilustrasi unit moge" decoding="async">' : bike('cruiser', '#C8402F')) + '</div></div></section>';
+  }
+  function steps() {
+    return '<section class="wrap"><div class="steps">' +
+      '<div class="step"><i>1</i><div><b>Pilih model gambaran</b><span>Telusuri range harga, merek, lalu model dan rentang tahun yang kamu incar.</span></div></div>' +
+      '<div class="step"><i>2</i><div><b>Daftar, verifikasi, bayar DP</b><span>Daftar lewat WhatsApp, tim memverifikasi secara manual, lalu DP sekitar ' + esc(S.settings.dp) + '% mengamankan slot kamu.</span></div></div>' +
+      '<div class="step"><i>3</i><div><b>Unit dicarikan</b><span>Setelah dana 6 anggota terkumpul, unit dicarikan dan jadwal pakai dibagi bergantian.</span></div></div>' +
+      '</div></section>';
+  }
+  function tiersHtml() {
+    var h = '<div class="tiers">';
+    S.tiers.forEach(function (t) {
+      var n = S.models.filter(function (m) { return m.tier === t.id; }).length, sel = t.id === UI.tier;
+      h += '<div><button type="button" class="tier" data-act="tier" data-id="' + esc(t.id) + '" data-fk="tier-' + esc(t.id) + '" aria-pressed="' + sel + '">' +
+        '<span class="nm">' + esc(t.name) + (sel ? '<em>● Dipilih</em>' : '') + '</span>' +
+        '<span class="tt">' + rp(t.min, t.max) + '</span><span class="ss">total dana per unit</span>' +
+        '<span class="pp">' + per(t.min, t.max) + ' <span>per anggota</span></span><span class="cc">' + n + ' model tersedia</span></button>' +
+        (UI.admin ? '<button type="button" class="btn sm" style="margin-top:8px" data-act="tier-edit" data-id="' + esc(t.id) + '" data-fk="tedit-' + esc(t.id) + '">Ubah tier</button>' : '') + '</div>';
+    });
+    if (UI.admin) h += '<div><button type="button" class="tier" data-act="tier-add" data-fk="tadd" style="text-align:center;color:var(--muted)">+ Tambah tier</button></div>';
+    return h + '</div>';
+  }
+  function brandsHtml() {
+    var inTier = S.models.filter(function (m) { return m.tier === UI.tier; });
+    var h = '<div class="pills"><button type="button" class="pill" data-act="brand" data-id="all" data-fk="brand-all" aria-pressed="' + (UI.brand === 'all') + '">Semua merek<span>' + inTier.length + '</span></button>';
+    S.brands.forEach(function (b) {
+      var n = inTier.filter(function (m) { return m.brand === b.id; }).length;
+      if (!n && !UI.admin) return;
+      h += '<button type="button" class="pill" data-act="brand" data-id="' + esc(b.id) + '" data-fk="brand-' + esc(b.id) + '" aria-pressed="' + (UI.brand === b.id) + '">' + esc(b.name) + '<span>' + n + '</span></button>';
+    });
+    if (UI.admin) {
+      h += '<button type="button" class="btn sm" data-act="brand-add" data-fk="badd">+ Merek</button>';
+      if (UI.brand !== 'all') h += '<button type="button" class="btn sm" data-act="brand-edit" data-id="' + esc(UI.brand) + '" data-fk="bedit">Ubah merek ini</button>';
+    }
+    return h + '</div>';
+  }
+  function cardHtml(m) {
+    return '<article class="card"><div class="stage' + (m.img ? ' ph' : '') + '"><span class="tag">Ilustrasi</span>' + pic(m) + '</div><div class="cb">' +
+      '<div><div class="mt">' + esc(m.family) + ' · ' + esc(m.cc) + ' cc</div><h4>' + esc(m.name) + '</h4></div>' +
+      '<dl class="kv"><dt>Tahun pembuatan</dt><dd>' + esc(m.y1) + '–' + esc(m.y2) + '</dd><dt>Target dana unit</dt><dd>' + rp(m.fmin, m.fmax) + '</dd><dt>Per anggota (1/6)</dt><dd class="ac">' + per(m.fmin, m.fmax) + '</dd></dl>' +
+      '<div class="sl"><div class="lb"><span>Slot anggota</span><span>' + summary(m.id) + '</span></div>' + slotsHtml(m.id, UI.admin) + '</div>' +
+      '<div class="acts"><button type="button" class="btn" data-act="open" data-id="' + esc(m.id) + '" data-fk="open-' + esc(m.id) + '" aria-label="Lihat rincian ' + esc(m.name) + '">Lihat rincian</button>' +
+      (UI.admin ? '<button type="button" class="btn" data-act="model-edit" data-id="' + esc(m.id) + '" data-fk="medit-' + esc(m.id) + '">Ubah</button>' : '') + '</div></div></article>';
+  }
+  function modelsHtml() {
+    var shown = S.models.filter(function (m) { return m.tier === UI.tier && (UI.brand === 'all' || m.brand === UI.brand); });
+    if (!shown.length) return '<div class="empty-state">Belum ada model di pilihan ini.' + (UI.admin ? ' Gunakan “+ Model” untuk menambahkan.' : '') + '</div>';
+    var h = '';
+    S.brands.forEach(function (b) {
+      var items = shown.filter(function (m) { return m.brand === b.id; }).sort(function (x, y) { return x.fmin - y.fmin; });
+      if (!items.length) return;
+      h += '<div class="grp"><div class="gh"><h3>' + esc(b.name) + '</h3><span>' + esc(b.origin) + ' · ' + items.length + ' model</span></div><div class="cards">' + items.map(cardHtml).join('') + '</div></div>';
+    });
+    return h;
+  }
+  function catalog() {
+    var t = tierOf(UI.tier), b = brandOf(UI.brand);
+    var shownN = S.models.filter(function (m) { return m.tier === UI.tier && (UI.brand === 'all' || m.brand === UI.brand); }).length;
+    var sum = t ? esc(t.name) + ' · ' + rp(t.min, t.max) + ' › ' + (b ? esc(b.name) : 'Semua merek') + ' › ' + shownN + ' model' : '';
+    return '<section class="wrap" style="padding-top:clamp(36px,5vw,60px)">' +
+      '<div class="sec"><span class="n">1</span><h2>Range harga</h2><small>Total dana unit dari 6 anggota</small></div>' + tiersHtml() +
+      '<div class="sec gap"><span class="n">2</span><h2>Merek</h2><small>Yang tersedia di range terpilih</small></div>' + brandsHtml() +
+      '<div class="sec gap" style="margin-bottom:6px"><span class="n">3</span><h2>Model &amp; tahun pembuatan</h2></div>' +
+      '<p class="muted" style="margin:0 0 4px 44px;font-size:14px">' + sum + '</p>' +
+      '<div class="note">' + INFO_ICON + '<span>Gambar hanya ilustrasi gaya motor, bukan foto unit aktual. Unit sebenarnya dicarikan setelah dana 6 anggota terkumpul, jadi warna, varian, dan tahun dapat berbeda dalam range yang tertera.</span></div>' +
+      legend() + modelsHtml() +
+      '<div class="foot"><p>Range dana, tahun pembuatan, dan segmen bersifat indikatif sebagai gambaran awal, bukan penawaran harga. Spesifikasi dan harga final dikonfirmasi saat unit dicarikan. Status anggota hanya menampilkan inisial atas persetujuan anggota.</p><span>' + esc(S.settings.brand || '[NAMA PLATFORM]') + '</span></div></section>';
+  }
+  function render() {
+    fixUI();
+    app.innerHTML = adminBar() + header() + '<main>' + hero() + steps() + catalog() + '</main>';
+    if (UI.focus) { var el = app.querySelector('[data-fk="' + UI.focus + '"]'); if (el) el.focus(); UI.focus = null; }
+  }
+  function changed() { UI.dirty++; render(); }
+
+  /* ---------- dialog ---------- */
+  function openDlg(html, cls) {
+    dlg.className = cls || '';
+    dlg.setAttribute('aria-labelledby', 'dt');
+    dlg.innerHTML = html;
+    if (!dlg.open) { if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }
+  }
+  function closeDlg() { if (dlg.open) dlg.close(); dlg.innerHTML = ''; }
+  dlg.addEventListener('click', function (e) {
+    if (e.target === dlg) { closeDlg(); return; }
+    var c = e.target.closest('[data-dlg="close"]'); if (c) { closeDlg(); return; }
+    var a = e.target.closest('[data-act]'); if (a && !a.disabled) act(a.getAttribute('data-act'), a.dataset);
+  });
+
+  function formDlg(cfg) {
+    var h = '<form class="frm" novalidate><div class="dh"><h2 id="dt" style="font:600 28px/1.1 var(--display);text-transform:none;letter-spacing:0">' + esc(cfg.title) + '</h2><button type="button" class="x" data-dlg="close" aria-label="Tutup">' + X_ICON + '</button></div><div class="fgrid">';
+    cfg.fields.forEach(function (f) {
+      var id = 'f-' + f.k, v = cfg.values[f.k]; if (v == null || (typeof v === 'number' && isNaN(v))) v = '';
+      h += '<div class="fld' + (f.wide ? ' wide' : '') + '"><label for="' + id + '">' + esc(f.l) + '</label>';
+      if (f.t === 'select') {
+        h += '<select id="' + id + '">' + f.o.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (String(o[0]) === String(v) ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>';
+      } else if (f.t === 'img') {
+        h += '<div class="imgprev"><input id="' + id + '" type="file" accept="image/png,image/jpeg,image/webp"><div id="prev-' + f.k + '"></div><button type="button" class="btn sm" id="clr-' + f.k + '" hidden>Hapus gambar</button></div>';
+      } else if (f.t === 'area') {
+        h += '<textarea id="' + id + '" rows="3"' + (f.max ? ' maxlength="' + f.max + '"' : '') + '>' + esc(v) + '</textarea>';
+      } else {
+        h += '<input id="' + id + '" type="' + (f.t === 'num' ? 'number' : 'text') + '" value="' + esc(v) + '"' + (f.max ? ' maxlength="' + f.max + '"' : '') + (f.t === 'num' ? ' inputmode="decimal" step="any"' : '') + (f.ph ? ' placeholder="' + esc(f.ph) + '"' : '') + ' autocomplete="off">';
+      }
+      if (f.h) h += '<small>' + esc(f.h) + '</small>';
+      h += '</div>';
+    });
+    h += '</div><p class="err" id="ferr" role="alert" hidden></p><div class="frow">';
+    if (cfg.del) h += '<button type="button" class="btn danger" id="fdel">' + esc(cfg.del) + '</button>';
+    h += '<span class="sp"></span><button type="button" class="btn" data-dlg="close">Batal</button><button type="submit" class="btn primary">' + esc(cfg.ok || 'Simpan') + '</button></div></form>';
+    openDlg(h, 'narrow');
+    var form = dlg.querySelector('form'), err = dlg.querySelector('#ferr');
+    function fail(m) { err.textContent = m; err.hidden = false; }
+    var imgs = {};
+    cfg.fields.forEach(function (fl) {
+      if (fl.t !== 'img') return;
+      imgs[fl.k] = cfg.values[fl.k] || '';
+      var inp = dlg.querySelector('#f-' + fl.k), prev = dlg.querySelector('#prev-' + fl.k), clr = dlg.querySelector('#clr-' + fl.k);
+      function show() {
+        prev.innerHTML = imgs[fl.k] ? '<img class="mimg" src="' + esc(imgs[fl.k]) + '" alt="Pratinjau gambar">' : '<span class="muted" style="font-size:13px">Belum ada gambar. Dipakai ilustrasi vektor.</span>';
+        clr.hidden = !imgs[fl.k];
+      }
+      show();
+      inp.addEventListener('change', function () {
+        var f0 = inp.files && inp.files[0]; if (!f0) return;
+        readImage(f0).then(function (u) { imgs[fl.k] = u; show(); err.hidden = true; }, function (m) { fail(typeof m === 'string' ? m : 'Gambar tidak bisa diproses.'); });
+        inp.value = '';
+      });
+      clr.addEventListener('click', function () { imgs[fl.k] = ''; show(); });
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var vals = {};
+      cfg.fields.forEach(function (fl) {
+        if (fl.t === 'img') { vals[fl.k] = imgs[fl.k] || ''; return; }
+        var v = dlg.querySelector('#f-' + fl.k).value.trim(); vals[fl.k] = fl.t === 'num' ? (v === '' ? NaN : Number(v)) : v;
+      });
+      var m = cfg.save(vals);
+      if (m) fail(m); else { closeDlg(); changed(); }
+    });
+    if (cfg.del) {
+      var b = dlg.querySelector('#fdel'), armed = false;
+      b.addEventListener('click', function () {
+        if (!armed) { armed = true; b.textContent = 'Yakin hapus?'; return; }
+        var m = cfg.onDel();
+        if (m) { armed = false; b.textContent = cfg.del; fail(m); } else { closeDlg(); changed(); }
+      });
+    }
+    var first = dlg.querySelector('input,select,textarea'); if (first) first.focus();
+  }
+
+  /* ---------- form entitas ---------- */
+  function bad(n) { return typeof n !== 'number' || isNaN(n); }
+  function settingsDlg() {
+    formDlg({
+      title: 'Pengaturan halaman', values: S.settings,
+      fields: [
+        { k: 'brand', l: 'Nama platform', max: 40, ph: 'Nama yang tampil di header', wide: true },
+        { k: 'whatsapp', l: 'Nomor WhatsApp pendaftaran', ph: '6281234567890', h: 'Awali kode negara tanpa tanda +, misalnya 62812…', wide: true },
+        { k: 'dp', l: 'DP (%)', t: 'num', h: 'Persentase uang muka yang dikumpulkan.' },
+        { k: 'dpNote', l: 'Ketentuan DP', t: 'area', max: 400, h: 'Tampil di rincian model, misalnya soal pengembalian DP. Kosongkan jika belum ada.', wide: true },
+        { k: 'heroImg', l: 'Gambar utama di bagian atas (opsional)', t: 'img', wide: true, h: 'Jika kosong, dipakai ilustrasi vektor.' }
+      ],
+      save: function (v) {
+        var wa = v.whatsapp.replace(/\D/g, '');
+        if (wa && (wa.length < 8 || wa.length > 15)) return 'Nomor WhatsApp harus 8–15 digit, termasuk kode negara.';
+        if (bad(v.dp) || v.dp < 0 || v.dp > 100) return 'DP harus antara 0 dan 100 persen.';
+        S.settings = { brand: v.brand, whatsapp: wa, dp: v.dp, dpNote: v.dpNote, heroImg: v.heroImg };
+      }
+    });
+  }
+  function tierDlg(id) {
+    var t = id ? tierOf(id) : { name: '', min: '', max: '' };
+    formDlg({
+      title: id ? 'Ubah tier' : 'Tambah tier', values: t, del: id ? 'Hapus tier' : '',
+      fields: [
+        { k: 'name', l: 'Nama tier', max: 24, wide: true },
+        { k: 'min', l: 'Total dana minimum (juta Rp)', t: 'num' },
+        { k: 'max', l: 'Total dana maksimum (juta Rp)', t: 'num' }
+      ],
+      save: function (v) {
+        if (!v.name) return 'Nama tier wajib diisi.';
+        if (bad(v.min) || bad(v.max) || v.min < 0 || v.min >= v.max) return 'Range dana tidak valid: minimum harus lebih kecil dari maksimum.';
+        if (id) {
+          var out = S.models.filter(function (m) { return m.tier === id && (m.fmin < v.min || m.fmax > v.max); });
+          if (out.length) return 'Range baru tidak mencakup model: ' + out.map(function (m) { return m.name; }).join(', ') + '. Ubah model itu dulu.';
+          t.name = v.name; t.min = v.min; t.max = v.max;
+        } else {
+          var nt = { id: uid('t'), name: v.name, min: v.min, max: v.max };
+          S.tiers.push(nt); S.tiers.sort(function (a, b) { return a.min - b.min; }); UI.tier = nt.id; UI.brand = 'all';
+        }
+      },
+      onDel: function () {
+        if (S.models.some(function (m) { return m.tier === id; })) return 'Tier masih punya model. Pindahkan atau hapus modelnya dulu.';
+        S.tiers = S.tiers.filter(function (x) { return x.id !== id; });
+      }
+    });
+  }
+  function brandDlg(id) {
+    var b = id ? brandOf(id) : { name: '', origin: '' };
+    formDlg({
+      title: id ? 'Ubah merek' : 'Tambah merek', values: b, del: id ? 'Hapus merek' : '',
+      fields: [{ k: 'name', l: 'Nama merek', max: 40, wide: true }, { k: 'origin', l: 'Negara asal', max: 40, wide: true }],
+      save: function (v) {
+        if (!v.name) return 'Nama merek wajib diisi.';
+        if (id) { b.name = v.name; b.origin = v.origin; } else { S.brands.push({ id: uid('b'), name: v.name, origin: v.origin }); }
+      },
+      onDel: function () {
+        if (S.models.some(function (m) { return m.brand === id; })) return 'Merek masih punya model. Hapus modelnya dulu.';
+        S.brands = S.brands.filter(function (x) { return x.id !== id; }); UI.brand = 'all';
+      }
+    });
+  }
+  function modelDlg(id) {
+    if (!S.brands.length || !S.tiers.length) { toast('Tambahkan tier dan merek dulu sebelum membuat model.'); return; }
+    var m = id ? modelOf(id) : { name: '', family: '', cc: '', y1: '', y2: '', fmin: '', fmax: '', body: 'cruiser', paint: '#C8402F', img: '', tier: UI.tier, brand: UI.brand !== 'all' ? UI.brand : S.brands[0].id };
+    formDlg({
+      title: id ? 'Ubah model' : 'Tambah model', values: m, del: id ? 'Hapus model' : '',
+      fields: [
+        { k: 'name', l: 'Nama model', max: 40, wide: true },
+        { k: 'brand', l: 'Merek', t: 'select', o: S.brands.map(function (b) { return [b.id, b.name]; }) },
+        { k: 'tier', l: 'Range harga', t: 'select', o: S.tiers.map(function (t) { return [t.id, t.name + ' (' + rp(t.min, t.max) + ')']; }) },
+        { k: 'family', l: 'Seri / keluarga', max: 30 },
+        { k: 'cc', l: 'Kapasitas mesin (cc)', t: 'num' },
+        { k: 'y1', l: 'Tahun pembuatan dari', t: 'num' },
+        { k: 'y2', l: 'Tahun pembuatan sampai', t: 'num' },
+        { k: 'fmin', l: 'Target dana minimum (juta Rp)', t: 'num' },
+        { k: 'fmax', l: 'Target dana maksimum (juta Rp)', t: 'num' },
+        { k: 'body', l: 'Gaya ilustrasi', t: 'select', o: BODIES },
+        { k: 'paint', l: 'Warna ilustrasi', t: 'select', o: PAINTS },
+        { k: 'img', l: 'Gambar ilustrasi (opsional)', t: 'img', wide: true, h: 'Unggah foto atau gambar milik Anda atau yang berlisensi. Jika kosong, dipakai ilustrasi vektor di atas.' }
+      ],
+      save: function (v) {
+        if (!v.name) return 'Nama model wajib diisi.';
+        if (bad(v.cc) || v.cc <= 0) return 'Kapasitas mesin tidak valid.';
+        if (bad(v.y1) || bad(v.y2) || v.y1 < 1990 || v.y2 > 2035 || v.y1 > v.y2) return 'Rentang tahun tidak valid (contoh 2018 sampai 2022).';
+        if (bad(v.fmin) || bad(v.fmax) || v.fmin > v.fmax) return 'Range dana tidak valid: minimum tidak boleh lebih besar dari maksimum.';
+        var t = tierOf(v.tier);
+        if (v.fmin < t.min || v.fmax > t.max) return 'Range dana harus berada di dalam tier ' + t.name + ' (' + rp(t.min, t.max) + ').';
+        var rec = { name: v.name, family: v.family, cc: v.cc, y1: v.y1, y2: v.y2, fmin: v.fmin, fmax: v.fmax, body: v.body, paint: v.paint, img: v.img, tier: v.tier, brand: v.brand };
+        if (id) { Object.keys(rec).forEach(function (k) { m[k] = rec[k]; }); }
+        else { rec.id = uid('m'); S.models.push(rec); }
+        UI.tier = v.tier; UI.brand = v.brand;
+      },
+      onDel: function () {
+        S.models = S.models.filter(function (x) { return x.id !== id; });
+        S.members = S.members.filter(function (x) { return x.model !== id; });
+      }
+    });
+  }
+  function memberDlg(modelId, mid) {
+    var mm = mid ? S.members.filter(function (x) { return x.id === mid; })[0] : null;
+    var model = modelOf(modelId);
+    formDlg({
+      title: (mm ? 'Ubah anggota' : 'Tambah anggota') + ' · ' + model.name,
+      values: mm ? { ini: mm.ini, st: mm.st } : { ini: '', st: 'daftar' }, del: mm ? 'Hapus dari slot' : '',
+      fields: [
+        { k: 'ini', l: 'Inisial', max: 3, ph: 'RA', h: 'Maksimal 3 huruf. Jangan isi nama lengkap, hanya inisial.' },
+        { k: 'st', l: 'Status', t: 'select', o: [['daftar', 'Mendaftar'], ['verifikasi', 'Terverifikasi'], ['dp', 'DP terbayar']] }
+      ],
+      save: function (v) {
+        var ini = v.ini.toUpperCase();
+        if (!/^\p{L}{1,3}$/u.test(ini)) return 'Inisial harus 1–3 huruf.';
+        if (mm) { mm.ini = ini; mm.st = v.st; }
+        else {
+          if (membersOf(modelId).length >= SLOTS) return 'Semua 6 slot model ini sudah terisi.';
+          S.members.push({ id: uid('a'), model: modelId, ini: ini, st: v.st });
+        }
+      },
+      onDel: function () { S.members = S.members.filter(function (x) { return x.id !== mid; }); }
+    });
+  }
+
+  /* ---------- rincian model ---------- */
+  function waLink(m) {
+    var n = (S.settings.whatsapp || '').replace(/\D/g, ''); if (!n) return '';
+    var msg = 'Halo, saya ingin mendaftar sebagai anggota untuk ' + brandOf(m.brand).name + ' ' + m.name + ' (tier ' + tierOf(m.tier).name + '). Mohon info langkah verifikasi.';
+    return 'https://wa.me/' + n + '?text=' + encodeURIComponent(msg);
+  }
+  function openDetail(id) {
+    var m = modelOf(id); if (!m) return;
+    var t = tierOf(m.tier), b = brandOf(m.brand), full = membersOf(id).length >= SLOTS, link = waLink(m);
+    var reg = !link ? '<button type="button" class="btn" disabled>Pendaftaran segera dibuka</button>' :
+      (full ? '<button type="button" class="btn" disabled>Semua slot terisi</button>' : '<a class="btn primary" href="' + esc(link) + '" target="_blank" rel="noopener">Daftar via WhatsApp</a>');
+    var wa = S.settings.whatsapp ? '<p class="muted" style="font-size:13px;margin-top:10px">Atau hubungi WhatsApp <span style="user-select:all">+' + esc(S.settings.whatsapp) + '</span></p>' : '';
+    var h = '<div class="dt"><div class="l"><div class="stage' + (m.img ? ' ph' : '') + '" style="background:none;' + (m.img ? '' : 'padding:28px 0 0') + '"><span class="tag"' + (m.img ? '' : ' style="left:0"') + '>Ilustrasi</span>' + pic(m) + '</div>' +
+      '<p class="muted" style="font-size:13px">Ilustrasi gaya motor. Unit aktual dicarikan setelah dana terkumpul; warna dan varian dapat berbeda.</p></div>' +
+      '<div class="r"><div class="dh"><div><div class="mt">' + esc(b.name) + ' · ' + esc(m.family) + '</div><h2 id="dt">' + esc(m.name) + '</h2><div class="tr">' + esc(t.name) + ' · ' + rp(t.min, t.max) + '</div></div><button type="button" class="x" data-dlg="close" aria-label="Tutup rincian">' + X_ICON + '</button></div>' +
+      '<dl class="kv" style="margin-top:22px;padding-bottom:20px;border-bottom:1px solid var(--line)"><dt>Tahun pembuatan</dt><dd>' + esc(m.y1) + '–' + esc(m.y2) + '</dd><dt>Kapasitas mesin</dt><dd>' + esc(m.cc) + ' cc</dd><dt>Target dana unit</dt><dd>' + rp(m.fmin, m.fmax) + '</dd><dt>Per anggota (1/6)</dt><dd class="ac">' + per(m.fmin, m.fmax) + '</dd><dt>Durasi kontrak</dt><dd>5 tahun</dd></dl>' +
+      '<h3>Slot anggota</h3><div class="sl"><div class="lb"><span>' + summary(id) + '</span></div>' + slotsHtml(id, false) + '</div>' + legend() +
+      '<div class="box"><b>Uang muka (DP) sekitar ' + esc(S.settings.dp) + '%</b>Saat ini yang dikumpulkan hanya DP untuk mengamankan slot, bukan pelunasan.' + (S.settings.dpNote ? '<br>' + esc(S.settings.dpNote) : '') + '</div>' +
+      '<h3>Biaya berjalan per anggota</h3><dl class="kv sm"><dt>Iuran rutin (manajemen + garasi)</dt><dd>Rp250.000 / bulan</dd><dt>Antar-jemput, opsional</dt><dd>Rp100.000 / trip</dd><dt>BBM, tol, perbaikan di luar garansi</dt><dd>Ditagih terpisah</dd></dl>' +
+      '<h3>Biaya pengelola</h3><dl class="kv sm"><dt>Margin pembelian (sourcing)</dt><dd>10% dari harga unit</dd><dt>Komisi jual saat likuidasi, tahun ke-5</dt><dd>10% dari harga jual</dd></dl>' +
+      '<div class="btns">' + reg + (UI.admin ? '<button type="button" class="btn" data-act="model-edit" data-id="' + esc(id) + '">Ubah model</button>' : '') + '<button type="button" class="btn" data-dlg="close">Tutup</button></div>' + wa + '</div></div>';
+    openDlg(h, '');
+  }
+
+  /* ---------- terbitkan ---------- */
+  function buildDoc() {
+    var st = document.head.querySelector('style');
+    var reset = st && /\[hidden\]/.test(st.textContent) ? st.textContent : FALLBACK_RESET;
+    var json = JSON.stringify(S).replace(/</g, '\\u003c');
+    var css = document.getElementById('css').textContent;
+    var js = document.getElementById('appjs').textContent;
+    var content = '<title>' + TITLE + '</title><meta name="claude:viewport-fit-sides" content="cover">' +
+      '<link rel="stylesheet" href="' + FONT + '"><style id="css">' + css + '</style>' +
+      '<div id="app"></div><dialog id="dlg"></dialog><div id="toast" class="toast" role="status" aria-live="polite" hidden></div>' +
+      '<script type="application/json" id="state">' + json + '<' + '/script><script id="appjs">' + js + '<' + '/script>';
+    return '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>' + reset + '</style></head><body>' + content + '</body></html>';
+  }
+  function publish() {
+    if (UI.saving || !UI.dirty) return;
+    use('artifact').then(function (art) {
+      if (!art) { toast('Penyimpanan tidak tersedia di tampilan ini. Buka halaman dari akun pengelola.'); return; }
+      var doc = buildDoc();
+      if (doc.length > 12000000) { toast('Halaman terlalu besar (' + Math.round(doc.length / 1e6) + ' MB). Hapus beberapa gambar lalu coba lagi.'); return; }
+      UI.saving = true; stash(); render();
+      return art.publish(doc).catch(function (e) {
+        UI.saving = false;
+        var c = e && e.code;
+        if (c === 'not_writer' || c === 'not_granted' || c === 'consent_required' || c === 'not_declared') { UI.canEdit = false; UI.admin = false; toast('Akun ini hanya bisa melihat halaman. Perubahan tidak tersimpan.'); }
+        else if (c === 'conflict') toast('Ada versi yang lebih baru. Halaman dimuat ulang dan perubahan terakhir Anda perlu diulang.');
+        else if (c === 'too_large') toast('Halaman terlalu besar untuk disimpan.');
+        else if (c === 'rate_limited') toast('Terlalu sering menyimpan. Tunggu sebentar lalu coba lagi.');
+        else toast('Gagal menerbitkan. Coba lagi sebentar.');
+        render();
+      });
+    });
+  }
+
+  /* ---------- aksi ---------- */
+  function act(a, d) {
+    switch (a) {
+      case 'tier': UI.tier = d.id; UI.brand = 'all'; render(); break;
+      case 'brand': UI.brand = d.id; render(); break;
+      case 'open': openDetail(d.id); break;
+      case 'admin': UI.admin = !UI.admin; stash(); render(); break;
+      case 'publish': publish(); break;
+      case 'discard': try { sessionStorage.setItem('kt-admin', '1'); } catch (e) {} location.reload(); break;
+      case 'settings': settingsDlg(); break;
+      case 'tier-add': tierDlg(null); break;
+      case 'tier-edit': tierDlg(d.id); break;
+      case 'brand-add': brandDlg(null); break;
+      case 'brand-edit': brandDlg(d.id); break;
+      case 'model-add': modelDlg(null); break;
+      case 'model-edit': modelDlg(d.id); break;
+      case 'slot': memberDlg(d.id, d.mid || null); break;
+    }
+  }
+  app.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-act]'); if (!t || t.disabled) return;
+    UI.focus = t.getAttribute('data-fk') || null;
+    act(t.getAttribute('data-act'), t.dataset);
+  });
+
+  /* ---------- mulai ---------- */
+  try { if (location.hash === '#kelola') UI.canEdit = true; } catch (e) {}
+  try { if (UI.canEdit && sessionStorage.getItem('kt-admin') === '1') UI.admin = true; } catch (e) {}
+  render();
+  use('user').then(function (u) { return u ? u.canEdit() : false; }).then(function (ok) {
+    if (ok) UI.canEdit = true;
+    if (UI.canEdit) { try { UI.admin = sessionStorage.getItem('kt-admin') === '1'; } catch (e) {} render(); }
+  }).catch(function () {});
+})();
+</script>
